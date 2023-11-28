@@ -1,3 +1,6 @@
+<div id="form_success" style="background:green, color=#fff"></div>
+<div id="form_error" style="background:red, color=#fff"></div>
+
 <form id="info-form">
 
     <?php wp_nonce_field('wp_rest'); ?>
@@ -28,8 +31,15 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo get_rest_url( null, 'v1/referral_link/submit');?>",
-                data: form.serialize()
+                url: "<?php echo get_rest_url(null, 'v1/referral_link/submit'); ?>",
+                data: form.serialize(),
+                success: function (res) {
+                    form.hide();
+                    $("#form_success").html(res).fadeIn();
+                },
+                error: function () {
+                    $("#form_error").html("There was an error in submitting your form.").fadeIn();
+                }
             })
         });
     });
