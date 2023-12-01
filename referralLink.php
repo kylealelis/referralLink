@@ -4,6 +4,7 @@
  * Description: Referral Link plugin built for Kabayan Kuwait to redirect its users to several different services
  * Version: 1.0
  * Author: Kyle Angelo Alelis
+ * Text Domain: referral-plugin
  */
 
 if (!defined('ABSPATH')) {

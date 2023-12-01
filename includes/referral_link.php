@@ -8,6 +8,71 @@ add_action('init', 'create_submissions_page');
 
 add_action('add_meta_boxes', 'create_meta_box');
 
+add_filter('manage_submission_posts_columns', 'custom_submission_columns');
+
+add_action('manage_submission_posts_custom_column', 'fill_submission_columns', 10, 2);
+
+add_action('admin_init', 'setup_search');
+
+function setup_search()
+{
+    global $typenow;
+    if ($typenow == 'submission') {
+        add_filter('posts_search', 'submission_search_override', 10, 2);
+    }
+}
+
+function submission_search_override($search, $query)
+{
+    global $wpdb;
+    if ($query->is_main_query() && !empty($query->query['s'])) {
+        $sql = "
+            or exists (
+                select * from {$wpdb->postmeta} where post_id={$wpdb->posts}.ID
+                and meta_key in ('name', 'email', 'phone')
+                and meta_value like %s
+            )
+        ";
+        $like = '%' . $wpdb->esc_like($query->query['s']) . '%';
+        $search = preg_replace(
+            "#\({$wpdb->posts}.post_title LIKE [^)] +\)\K#",
+            $wpdb->prepare($sql, $like),
+            $search
+        );
+    }
+
+    return $search;
+}
+
+function fill_submission_columns($column, $post_id)
+{
+    switch ($column) {
+        case 'name':
+            echo get_post_meta($post_id, 'nameInput', true);
+            break;
+        case 'email':
+            echo get_post_meta($post_id, 'emailInput', true);
+            break;
+        case 'phone':
+            echo get_post_meta($post_id, 'phoneInput', true);
+            break;
+        case 'message':
+            echo get_post_meta($post_id, 'messageInput', true);
+            break;
+    }
+}
+
+function custom_submission_columns($columns)
+{
+    $columns = array(
+        'cb' => $columns['cb'],
+        'name' => __('Name', 'referral-plugin'),
+        'email' => __('Email', 'referral-plugin'),
+        'phone' => __('Phone', 'referral-plugin'),
+        'message' => __('Message', 'referral-plugin'),
+    );
+    return $columns;
+}
 function create_meta_box()
 {
     add_meta_box('custom_form', 'Submission', 'display_submission', 'submission');
@@ -20,7 +85,7 @@ function display_submission()
 
     echo '<ul>';
     foreach ($postmetas as $key => $value) {
-        echo '<li> <strong>' . $key . '</strong>:<br>'. $value[0] .'</li>';
+        echo '<li> <strong>' . $key . '</strong>:<br>' . $value[0] . '</li>';
     }
     echo '</ul>';
 }
