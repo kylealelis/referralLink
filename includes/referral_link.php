@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <?php
 
 add_shortcode('referral', 'show_referral_form');
@@ -14,18 +15,25 @@ add_action('manage_submission_posts_custom_column', 'fill_submission_columns', 1
 
 add_action('admin_init', 'setup_search');
 
-function setup_search()
-{
+add_action('wp_enqueue_scripts', 'add_scripts_and_styles');
+
+function add_scripts_and_styles() {
+    wp_register_style( 'referral-style', plugins_url('/templates/referral_link.css', __FILE__) );
+    wp_enqueue_style( 'referral-style' );
+    wp_register_script('referral_link.js', plugins_url('/templates/referral_link.js', __FILE__) );
+    wp_enqueue_script('referral_link.js');
+}
+
+function setup_search() {
     global $typenow;
-    if ($typenow == 'submission') {
+    if($typenow == 'submission') {
         add_filter('posts_search', 'submission_search_override', 10, 2);
     }
 }
 
-function submission_search_override($search, $query)
-{
+function submission_search_override($search, $query) {
     global $wpdb;
-    if ($query->is_main_query() && !empty($query->query['s'])) {
+    if($query->is_main_query() && !empty($query->query['s'])) {
         $sql = "
             or exists (
                 select * from {$wpdb->postmeta} where post_id={$wpdb->posts}.ID
@@ -33,7 +41,7 @@ function submission_search_override($search, $query)
                 and meta_value like %s
             )
         ";
-        $like = '%' . $wpdb->esc_like($query->query['s']) . '%';
+        $like = '%'.$wpdb->esc_like($query->query['s']).'%';
         $search = preg_replace(
             "#\({$wpdb->posts}.post_title LIKE [^)] +\)\K#",
             $wpdb->prepare($sql, $like),
@@ -44,9 +52,8 @@ function submission_search_override($search, $query)
     return $search;
 }
 
-function fill_submission_columns($column, $post_id)
-{
-    switch ($column) {
+function fill_submission_columns($column, $post_id) {
+    switch($column) {
         case 'name':
             echo get_post_meta($post_id, 'nameInput', true);
             break;
@@ -62,8 +69,7 @@ function fill_submission_columns($column, $post_id)
     }
 }
 
-function custom_submission_columns($columns)
-{
+function custom_submission_columns($columns) {
     $columns = array(
         'cb' => $columns['cb'],
         'name' => __('Name', 'referral-plugin'),
@@ -73,25 +79,22 @@ function custom_submission_columns($columns)
     );
     return $columns;
 }
-function create_meta_box()
-{
+function create_meta_box() {
     add_meta_box('custom_form', 'Submission', 'display_submission', 'submission');
 }
 
-function display_submission()
-{
+function display_submission() {
     $postmetas = get_post_meta(get_the_ID());
     unset($postmetas['_edit_lock']);
 
     echo '<ul>';
-    foreach ($postmetas as $key => $value) {
-        echo '<li> <strong>' . $key . '</strong>:<br>' . $value[0] . '</li>';
+    foreach($postmetas as $key => $value) {
+        echo '<li> <strong>'.$key.'</strong>:<br>'.$value[0].'</li>';
     }
     echo '</ul>';
 }
 
-function create_submissions_page()
-{
+function create_submissions_page() {
     $args = [
         'public' => true,
         'has_archive' => true,
@@ -104,13 +107,11 @@ function create_submissions_page()
     register_post_type('submission', $args);
 }
 
-function show_referral_form()
-{
-    include MY_PLUGIN_PATH . '/includes/templates/referral_link.php';
+function show_referral_form() {
+    include MY_PLUGIN_PATH.'/includes/templates/referral_link.php';
 }
 
-function create_rest_endpoint()
-{
+function create_rest_endpoint() {
     register_rest_route(
         'v1/referral_link',
         'submit',
@@ -121,10 +122,9 @@ function create_rest_endpoint()
     );
 }
 
-function handle_inquiry($data)
-{
+function handle_inquiry($data) {
     $params = $data->get_params();
-    if (!wp_verify_nonce($params['_wpnonce'], 'wp_rest')) {
+    if(!wp_verify_nonce($params['_wpnonce'], 'wp_rest')) {
         return new WP_REST_Response('Message not sent', 422);
     }
 
@@ -154,8 +154,8 @@ function handle_inquiry($data)
 
     $post_id = wp_insert_post($postarr);
 
-    foreach ($params as $label => $value) {
-        $message .= '<strong>' . ucfirst($label) . '</strong>: ' . $value . '<br>';
+    foreach($params as $label => $value) {
+        $message .= '<strong>'.ucfirst($label).'</strong>: '.$value.'<br>';
         add_post_meta($post_id, $label, $value);
     }
 

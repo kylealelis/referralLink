@@ -1,0 +1,115 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for the dialog form */
+#dialog-form {
+    display: none;
+    max-width: 400px;
+}
+
+/* Style for the form fields */
+#dialog-form form {
+    padding: 10px;
+}
+
+/* Style for the submit button */
+#dialog-form form .ui-button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Style for cart*/
+#itemTypeContainer {
+    margin-top: 10px;
+}
+
+#cart {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* Buttons */
+#addToCartButtonContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+#nextButtonContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+#backButtonContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+#placeOrderButtonContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* STYLE FOR IMAGES IN THE MENU */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+.image-item-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.image-item-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Style for the cart dialog */
+#cart-dialog {
+    display: none;
+    max-width: 600px;
+}
+
+/* Style for the cart items grid */
+#cart-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+/* Style for each cart item box */
+.cart-item-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.cart-item-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Style for the check sign */
+.check-sign {
+    color: green;
+    font-size: 18px;
+}
+
+/* Style for the error message */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+

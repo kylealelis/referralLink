@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<div id="form_success" style="background:green, color=#fff"></div>
+<div id="form_error" style="background:red, color=#fff"></div>
+
+<div id="menu-form" class=modal>
+    <form id="menu-form-inner" class="modal-content">
+        <span class="close">&times;<br></span>
+        <label for="menu">Select an item:</label>
+        <select id="menu">
+            <!--ADD OPTIONS HERE (TAKE NOTE OF THE OPTION VALUE)-->
+            <option value="" disabled selected>Select an item</option>
+            <option value="bucketChicken">Bucket of Chicken</option>
+            <option value="burger">Burgers</option>
+            <!--
+            <option value="bestSellers">Best Sellers</option>
+            <option value="familyMeal">Family Meals</option>
+            <option value="pasta">Pasta</option>
+            -->
+        </select>
+        <!-- Item types and add to cart button -->
+        <div id="itemTypeContainer"></div>
+
+        <!-- Cart display -->
+        <div id="cart" title="Cart">
+            <p>Your Cart:</p>
+        </div>
+
+        <!-- Add to Cart button -->
+        <div id="addToCartButtonContainer">
+            <button type="button" onclick="addToCart()">Add to Cart</button>
+        </div>
+
+        <!-- Next button -->
+        <div id="nextButtonContainer">
+            <button type="button" onclick="showCartDialog()">Next</button>
+        </div>
+    </form>
+</div>
+
+</html>

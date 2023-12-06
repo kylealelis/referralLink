@@ -1,0 +1,109 @@
+<p id="open-dialog-text" style="cursor: pointer; color: red; text-decoration: underline;">Jollibee</p>
+    
+<!-- MENU FORM -->
+<div id="menu-dialog-form" title="Menu">
+    <label for="menu">Select an item:</label>
+    <select id="menu">
+        <!--ADD OPTIONS HERE (TAKE NOTE OF THE OPTION VALUE)-->
+        <option value="" disabled selected>Select an item</option>
+        <option value="bucketChicken">Bucket of Chicken</option>
+        <option value="burger">Burgers</option>
+        <!--
+        <option value="bestSellers">Best Sellers</option>
+        <option value="familyMeal">Family Meals</option>
+        <option value="pasta">Pasta</option>
+        -->
+    </select>
+    <!-- Item types and add to cart button -->
+    <div id="itemTypeContainer"></div>
+
+    <p>Cart:</p>
+
+    <!-- Cart display -->
+    <div id="cart" title="Cart">
+        <p>None</p>
+    </div>
+
+    <!-- Add to Cart button -->
+    <div id="addToCartButtonContainer">
+        <button type="button" onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <!-- Next button -->
+    <div id="nextButtonContainer">
+        <button type="button" onclick="showCartDialog()">Next</button>
+    </div>
+    
+</div>
+
+<!-- CART DIALOG -->
+<div id="cart-dialog" title="Shopping Cart">
+    <div id="cart-items">
+        <p>Your Cart:</p>
+        <!-- Cart items will be displayed here -->
+    </div>
+
+    <!-- Back button -->
+    <div id="backButtonContainer">
+        <button type="button" onclick="showMenuDialog()">Back</button>
+    </div>
+
+    <!-- Next button -->
+    <div id="nextButtonContainer">
+        <button type="button" onclick="showDetailsForm()">Continue</button>
+    </div>
+</div>
+
+<!-- ORDER FORM -->
+<div id="guest-dialog-form" title="Guest Details">
+    <form id="myForm" action="send_email.php" method="post">
+        <!-- Your form fields go here -->
+        <label for="firstName">First Name:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="email">Email:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- Updated contact number field with pattern attribute -->
+        <label for="contactNumber">Contact Number:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="tel" id="contactNumber" name="contactNumber" pattern="[0-9]+" title="Please enter only numeric characters" required><br><br>
+
+        <!-- NOT YET CODED -->
+        <label for="address">Full Address:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="city">City:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="state">State/Province/Region:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="text" id="state" name="state" required><br><br>
+
+        <label for="zip">ZIP/Postal Code:</label><span style="color: red !important; display: inline; float: none;">*</span>
+        <input type="text" id="zip" name="zip" required><br><br>
+
+        <label for="country">Country:</label><span style="color: red !important; display: inline; float: none;">*</span>      
+        <select id="country" name="country" class="form-control">
+            <option value="" disabled selected>Select country</option>
+            <option value="Kuwait">Kuwait</option>
+            <option value="Philippines">Philippines</option>
+        </select>
+
+        <div id="placeOrderButtonContainer">
+            <button type="button" onclick="submitOrder()">Place Order</button>
+        </div>
+    </form>
+</div>
+
+<!--THANK YOU FORM-->
+<div id="thankyou-form" title="Thank you!">
+    <!-- Your form fields go here -->
+    <p id="thankyou-message">
+        Order received. Kindly wait for the service representative to receive and confirm your order.
+        Thank you!
+    </p>
+    
+    <button type="button" onclick="refreshPage()">Done</button>
+</div>
