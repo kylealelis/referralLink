@@ -20,7 +20,7 @@ add_action('wp_enqueue_scripts', 'add_scripts_and_styles');
 function add_scripts_and_styles() {
     wp_register_style( 'referral-style', plugins_url('/templates/referral_link.css', __FILE__) );
     wp_enqueue_style( 'referral-style' );
-    wp_register_script('referral_link.js', plugins_url('/templates/referral_link.js', __FILE__) );
+    wp_register_script('referral_link.js', plugins_url('/templates/referral_link.js', __FILE__), array('jquery'), null, true );
     wp_enqueue_script('referral_link.js');
 }
 
@@ -99,7 +99,7 @@ function create_submissions_page() {
         'public' => true,
         'has_archive' => true,
         'labels' => [
-            'name' => 'Submissions',
+            'name' => 'Referral Link Submissions',
             'singular_name' => 'Submission'
         ],
         'supports' => false,

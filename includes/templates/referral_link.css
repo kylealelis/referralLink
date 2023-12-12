@@ -51,3 +51,23 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+#itemTypeContainer {
+    margin-top: 10px;
+}
+
+#cart {
+    margin-top: 30px;
+    border: 2px solid #ccc;
+    padding: 30px;
+}
+
+#addToCartButtonContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#nextButtonContainer {
+    margin-top: 10px;
+    text-align: center;
+}
