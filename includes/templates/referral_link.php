@@ -1,11 +1,11 @@
 <?php
-    include("referral_link.html");
+    // include("referral_link.html");
 ?>
 
 <div id="info-form" class="modal">
     <form id="info-form-inner" class="modal-content">
         <div class="modal-header">
-            <!-- <span class="close">&times;<br></span> -->
+            <span class="close">&times;<br></span>
             <?php wp_nonce_field('wp_rest'); ?>
 
             <label>Name</label>

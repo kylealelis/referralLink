@@ -18,8 +18,9 @@ add_action('admin_init', 'setup_search');
 add_action('wp_enqueue_scripts', 'add_scripts_and_styles');
 
 function add_scripts_and_styles() {
-    wp_register_style( 'referral-style', plugins_url('/templates/referral_link.css', __FILE__) );
-    wp_enqueue_style( 'referral-style' );
+    wp_deregister_script( 'referral_link_style' );
+    wp_register_style( 'referral_link_style', plugins_url('/templates/referral_link.css', __FILE__) );
+    wp_enqueue_style( 'referral_link_style' );
     wp_register_script('referral_link.js', plugins_url('/templates/referral_link.js', __FILE__), array('jquery'), null, true );
     wp_enqueue_script('referral_link.js');
 }

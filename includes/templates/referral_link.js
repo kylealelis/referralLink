@@ -2,7 +2,7 @@ var modal = document.getElementById('menu-form');
 var span = document.getElementsByClassName("close")[0];
 
 span.onclick = function () {
-    document.getElementById('menu-form').style.display = 'none';
+    document.getElementById('info-form').style.display = 'none';
 }
 
 window.onclick = function (event) {
@@ -58,8 +58,8 @@ function addToCart() {
 }
 
 function showForm() {
-    document.getElementById('menu-form').style.display = 'block';
-    $("#menu").trigger("change");
+    document.getElementById('info-form').style.display = 'block';
+    // $("#menu").trigger("change");
 }
 
 function centerForm() {
